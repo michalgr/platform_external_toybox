@@ -246,6 +246,7 @@ cc_defaults {
         "-fdata-sections",
         "-fno-asynchronous-unwind-tables",
         "-DTOYBOX_VENDOR=\"-android\"",
+        "-DMODPROBE_MODULE_PATH=\"/vendor/lib/modules\"",
     ],
 
     // This doesn't actually prevent us from dragging in libc++ at runtime

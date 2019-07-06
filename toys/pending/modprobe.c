@@ -497,7 +497,9 @@ static int go_probe(struct module_s *m)
 
 void modprobe_main(void)
 {
+#ifndef MODPROBE_MODULE_PATH
   struct utsname uts;
+#endif
   char **argv = toys.optargs, *procline = NULL;
   FILE *fs;
   struct module_s *module;
@@ -516,9 +518,13 @@ void modprobe_main(void)
   }
 
   if (!TT.dirs) {
-    uname(&uts);
     TT.dirs = xzalloc(sizeof(struct arg_list));
+#ifdef MODPROBE_MODULE_PATH
+    TT.dirs->arg = xstrdup(MODPROBE_MODULE_PATH);
+#else
+    uname(&uts);
     TT.dirs->arg = xmprintf("/lib/modules/%s", uts.release);
+#endif
   }
 
   // modules.dep processing for dependency check.
