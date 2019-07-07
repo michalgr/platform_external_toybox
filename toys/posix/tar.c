@@ -400,7 +400,7 @@ static int dirflush(char *name)
   // Barf if name not in TT.cwd
   if (name) {
     ss = s = xabspath(name, -1);
-    if (TT.cwd[1] && (!strstart(&ss, TT.cwd) || *ss!='/')) {
+    if (TT.cwd[1] && (!strstart(&ss, TT.cwd) || (*ss!='/' && *ss))) {
       error_msg("'%s' not under '%s'", name, TT.cwd);
       free(s);
 
